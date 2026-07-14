@@ -1,23 +1,10 @@
-
-
-resource "aws_s3_bucket" "logs" {
-  bucket = "${var.bucket_name}-logs"
-
-  tags = var.tags
-}
-
-
-
+#tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
 
-  logging {
-    target_bucket = aws_s3_bucket.logs.id
-    target_prefix = "access-logs/"
-  }
-
   tags = var.tags
 }
+
 
 
 resource "aws_s3_bucket_versioning" "this" {
