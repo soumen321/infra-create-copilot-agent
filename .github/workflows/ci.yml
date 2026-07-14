@@ -29,3 +29,7 @@ jobs:
         run: terraform validate
       - name: Unit tests placeholder
         run: echo "Add tests for Lambda here"
+
+  security:
+     needs: validate
+     uses: ./.github/workflows/security-scan.yml    
