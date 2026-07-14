@@ -94,6 +94,9 @@ plan.out
 *.zip
 *.tar.gz
 
+# Allow the packaged Lambda deployment artifact for source control
+!src/lambda-function.zip
+
 ###############################################################################
 # Environment Files
 ###############################################################################

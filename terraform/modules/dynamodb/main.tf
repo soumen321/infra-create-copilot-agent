@@ -1,10 +1,4 @@
 
-resource "aws_kms_key" "dynamodb" {
-  description             = "DynamoDB encryption key"
-  deletion_window_in_days = 7
-  enable_key_rotation = true
-}
-
 resource "aws_dynamodb_table" "this" {
   name         = var.table_name
   billing_mode = "PAY_PER_REQUEST"
@@ -16,8 +10,7 @@ resource "aws_dynamodb_table" "this" {
   }
 
   server_side_encryption {
-    enabled     = true
-    kms_key_arn = aws_kms_key.dynamodb.arn
+    enabled = true
   }
 
   point_in_time_recovery {
