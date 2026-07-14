@@ -1,9 +1,23 @@
-resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
+
+
+resource "aws_s3_bucket" "logs" {
+  bucket = "${var.bucket_name}-logs"
 
   tags = var.tags
 }
 
+
+
+resource "aws_s3_bucket" "this" {
+  bucket = var.bucket_name
+
+  logging {
+    target_bucket = aws_s3_bucket.logs.id
+    target_prefix = "access-logs/"
+  }
+
+  tags = var.tags
+}
 
 
 resource "aws_s3_bucket_versioning" "this" {
@@ -18,7 +32,7 @@ resource "aws_s3_bucket_versioning" "this" {
 resource "aws_kms_key" "s3" {
   description             = "KMS key for S3 encryption"
   deletion_window_in_days = 7
-  enable_key_rotation = true
+  enable_key_rotation     = true
 }
 
 
