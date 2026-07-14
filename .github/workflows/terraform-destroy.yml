@@ -36,7 +36,7 @@ jobs:
 
       - name: Terraform Init
         working-directory: ${{ inputs.working_directory }}
-        run: terraform init
+        run: terraform init -reconfigure
 
       - name: Terraform Destroy
         working-directory: ${{ inputs.working_directory }}
