@@ -16,25 +16,25 @@ module "iam" {
   role_name   = "${var.project_name}-${var.environment}-lambda-role"
   policy_name = "${var.project_name}-${var.environment}-lambda-policy"
 
-  policy_document = jsonencode({
-    Version = "2012-10-17",
+  policy_document = {
+    Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow",
+        Effect = "Allow"
         Action = [
           "dynamodb:PutItem"
-        ],
-        Resource = "${module.dynamodb.table_arn}"
+        ]
+        Resource = module.dynamodb.table_arn
       },
       {
-        Effect = "Allow",
+        Effect = "Allow"
         Action = [
           "s3:GetObject"
-        ],
+        ]
         Resource = "${module.s3.bucket_arn}/*"
       }
     ]
-  })
+  }
 
   tags = local.common_tags
 }

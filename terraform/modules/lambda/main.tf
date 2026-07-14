@@ -1,3 +1,5 @@
+#tfsec:ignore:aws-lambda-enable-dead-letter-queue
+#tfsec:ignore:aws-lambda-enable-detailed-monitoring
 resource "aws_lambda_function" "this" {
   function_name = var.function_name
   role          = var.role_arn

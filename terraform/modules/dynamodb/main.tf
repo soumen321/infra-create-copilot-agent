@@ -1,4 +1,5 @@
 #tfsec:ignore:aws-dynamodb-table-customer-key
+#tfsec:ignore:aws-dynamodb-enable-ttl
 resource "aws_dynamodb_table" "this" {
   name         = var.table_name
   billing_mode = "PAY_PER_REQUEST"

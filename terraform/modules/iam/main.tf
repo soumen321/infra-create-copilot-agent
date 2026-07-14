@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_execution" {
-  name = var.role_name
+  name_prefix = var.role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -16,8 +16,8 @@ resource "aws_iam_role" "lambda_execution" {
 }
 
 resource "aws_iam_policy" "lambda_access" {
-  name   = var.policy_name
-  policy = jsonencode(var.policy_document)
+  name_prefix = var.policy_name
+  policy      = jsonencode(var.policy_document)
 }
 
 resource "aws_iam_role_policy_attachment" "basic_execution" {
