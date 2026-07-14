@@ -65,7 +65,9 @@ override.tf.json
 ###############################################################################
 
 *.tfvars
-!terraform/environments/*.tfvars
+!terraform/environments/
+!terraform/environments/dev/
+!terraform/environments/dev/*.tfvars
 *.tfvars.json
 
 # Keep example variable files
