@@ -1,0 +1,22 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+
+jobs:
+  destroy:
+    uses: ./.github/workflows/terraform-destroy.yml
+
+    with:
+      environment: ${{ github.event.inputs.environment }}
+
+    secrets:
+      AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
