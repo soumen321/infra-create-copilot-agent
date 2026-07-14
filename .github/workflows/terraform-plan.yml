@@ -1,0 +1,42 @@
+name: Terraform Plan
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      working_directory:
+        required: false
+        type: string
+        default: terraform/projects/demo-serverless
+    secrets:
+      AWS_ROLE_TO_ASSUME:
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with: { terraform_version: '1.6.6' }
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+      - name: Terraform Init
+        working-directory: ${{ inputs.working_directory }}
+        run: terraform init -backend=false
+      - name: Terraform Plan
+        working-directory: ${{ inputs.working_directory }}
+        run: terraform plan -var-file=../../environments/${{ inputs.environment }}/terraform.tfvars -input=false -out=tfplan
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tfplan-${{ inputs.environment }}
+          path: ${{ inputs.working_directory }}/tfplan

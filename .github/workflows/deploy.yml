@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        default: dev
+        type: choice
+        options: [dev]
+
+jobs:
+  plan:
+    uses: ./.github/workflows/terraform-plan.yml
+    with:
+      environment: ${{ github.event.inputs.environment }}
+    secrets:
+      AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+
+  apply:
+    needs: plan
+    uses: ./.github/workflows/terraform-apply.yml
+    with:
+      environment: ${{ github.event.inputs.environment }}
+    secrets:
+      AWS_ROLE_TO_ASSUME: ${{ secrets.AWS_ROLE_TO_ASSUME }}

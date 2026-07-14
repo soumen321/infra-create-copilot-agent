@@ -1,0 +1,16 @@
+name: Terraform Apply
+
+on:
+  workflow_call:
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    steps: Download Artifact
+
+      Terraform Apply
+
+      Smoke Test

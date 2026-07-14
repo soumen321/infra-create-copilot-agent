@@ -1,0 +1,13 @@
+name: Security Scan
+
+on:
+  workflow_call:
+
+jobs:
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: terraform/projects/demo-serverless
