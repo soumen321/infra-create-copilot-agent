@@ -37,7 +37,7 @@ jobs:
           path: ${{ inputs.working_directory }}
       - name: Terraform Init
         working-directory: ${{ inputs.working_directory }}
-        run: terraform init -backend=false
+        run: terraform init -reconfigure
       - name: Terraform Apply
         working-directory: ${{ inputs.working_directory }}
         run: terraform apply -input=false -auto-approve tfplan

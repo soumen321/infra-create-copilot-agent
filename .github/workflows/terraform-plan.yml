@@ -32,7 +32,7 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
       - name: Terraform Init
         working-directory: ${{ inputs.working_directory }}
-        run: terraform init -backend=false
+        run: terraform init -reconfigure
       - name: Terraform Plan
         working-directory: ${{ inputs.working_directory }}
         run: terraform plan -var-file=../../environments/${{ inputs.environment }}/terraform.tfvars -input=false -out=tfplan
