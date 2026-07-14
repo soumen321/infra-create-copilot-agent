@@ -11,6 +11,10 @@ on:
         options:
           - dev
 
+permissions:
+  id-token: write
+  contents: read          
+
 jobs:
   destroy:
     uses: ./.github/workflows/terraform-destroy.yml
