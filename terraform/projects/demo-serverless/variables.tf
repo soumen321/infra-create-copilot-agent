@@ -23,7 +23,7 @@ variable "table_name" {
 
 variable "lambda_filename" {
   type    = string
-  default = "../../examples/lambda-function.zip"
+  default = "../../src/lambda-function.zip"
 }
 
 variable "tags" {
